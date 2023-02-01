@@ -28,7 +28,11 @@ RUN apt-get update &&\
       libboost-all-dev \
       gdbserver \
       python3 \
-      python3-pip
+      python3-pip \
+      wget \
+      curl \
+      iputils-ping \
+      
 RUN apt-get clean
 RUN apt-get install -y sudo
 #RUN pip3 install torch torchvision torchaudio
@@ -40,8 +44,8 @@ RUN echo ${USER}' ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN chmod 644 /etc/sudoers
 #RUN echo 'Port 22' >> /etc/ssh/sshd_config
 #RUN echo 'service ssh start' >> /etc/init.d/docker_ssh
-RUN chmod 775 /etc/init.d/docker_ssh
-RUN update-rc.d docker_ssh defaults 999
+#RUN chmod 775 /etc/init.d/docker_ssh
+#RUN update-rc.d docker_ssh defaults 999
 #RUN passwd root ${PASSWD}
 
 #CMD ["/usr/sbin/sshd", "-D"]
@@ -49,4 +53,6 @@ RUN update-rc.d docker_ssh defaults 999
 USER ${USER}
 RUN mkdir -p /home/${USER}/${WORKDIR}/
 RUN sudo echo 'sudo service ssh restart' >> ~/.bashrc
+RUN cd /home/${USER}/${WORKDIR}/ &&\
+  git clone https://github.com/intellistream/serverMaintenance.git
 #ENV LC_ALL C.UTF-8
