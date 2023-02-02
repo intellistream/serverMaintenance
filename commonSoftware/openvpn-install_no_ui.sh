@@ -856,7 +856,7 @@ ifconfig-pool-persist ipp.txt" >>/etc/openvpn/server.conf
 		fi
 		;;
 	esac
-	echo 'push "redirect-gateway def1 bypass-dhcp"' >>/etc/openvpn/server.conf
+	#echo 'push "redirect-gateway def1 bypass-dhcp"' >>/etc/openvpn/server.conf
 
 	# IPv6 network settings if needed
 	if [[ $IPV6_SUPPORT == 'y' ]]; then
@@ -898,6 +898,7 @@ tls-server
 tls-version-min 1.2
 tls-cipher $CC_CIPHER
 client-config-dir /etc/openvpn/ccd
+client-to-client
 status /var/log/openvpn/status.log
 verb 3" >>/etc/openvpn/server.conf
 
