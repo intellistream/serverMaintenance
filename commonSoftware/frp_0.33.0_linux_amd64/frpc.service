@@ -7,8 +7,8 @@ Type=simple
 User=nobody
 Restart=on-failure
 RestartSec=5s
-ExecStart=/usr/bin/frpc -c /etc/frp/frpc.ini
-ExecReload=/usr/bin/frpc reload -c /etc/frp/frpc.ini
+ExecStart=/usr/bin/frpc -c /etc/openvpn/frpc_vpn.ini
+ExecReload=/usr/bin/frpc reload -c /etc/frp/frpc_vpn.ini
 
 [Install]
 WantedBy=multi-user.target
