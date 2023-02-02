@@ -32,7 +32,8 @@ RUN apt-get update &&\
       wget \
       curl \
       iputils-ping \
-      iproute2
+      iproute2 \
+      sshpass
       
 RUN apt-get clean
 RUN apt-get install -y sudo
