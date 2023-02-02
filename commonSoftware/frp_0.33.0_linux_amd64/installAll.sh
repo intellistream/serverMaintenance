@@ -7,4 +7,4 @@ sudo bash openvpn-install_no_ui.sh
 sudo cp frpc /usr/bin/
 ./createNewCli.sh entryUser
 sudo service openvpn start
-sudo /usr/bin/frpc -c /etc/openvpn/frpc.ini &
+sudo /usr/bin/frpc -c /etc/openvpn/frpc_vpn.ini &
