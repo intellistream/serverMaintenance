@@ -11,6 +11,9 @@
 #include <string>
 #include <sstream>
 #include <stdint.h>
+#include <atomic>
+std::atomic_uint16_t workSt=0;
+int isSaveResult=0;
 typedef websocketpp::client<websocketpp::config::asio_client> client;
 
 class connection_metadata {
@@ -30,6 +33,7 @@ public:
 
         client::connection_ptr con = c->get_con_from_hdl(hdl);
         m_server = con->get_response_header("Server");
+        workSt=2;
     }
 
     void on_fail(client * c, websocketpp::connection_hdl hdl) {
@@ -53,6 +57,17 @@ public:
     void on_message(websocketpp::connection_hdl, client::message_ptr msg) {
         if (msg->get_opcode() == websocketpp::frame::opcode::text) {
             m_messages.push_back("<< " + msg->get_payload());
+            std::cout<<msg->get_payload()<<std::endl;
+            workSt=3;
+            if(isSaveResult)
+            {
+              system("rm myPort.txt");
+              std::string cmd="echo ";
+              cmd+=msg->get_payload()+" >> myPort.txt";
+              system(cmd.data());
+            }
+
+
         } else {
             m_messages.push_back("<< " + websocketpp::utility::to_hex(msg->get_payload()));
         }
@@ -246,83 +261,49 @@ private:
     int m_next_id;
 };
 
-int main() {
-    bool done = false;
-    std::string input;
+int main(int argc ,char **argv) {
+   // bool done = false;
+   // std::string input;
     websocket_endpoint endpoint;
-
-    while (!done) {
-        std::cout << "Enter Command: ";
-        std::getline(std::cin, input);
-
-        if (input == "quit") {
-            done = true;
-        } else if (input == "help") {
-            std::cout
-                << "\nCommand List:\n"
-                << "connect <ws uri>\n"
-                << "send <connection id> <message>\n"
-                << "close <connection id> [<close code:default=1000>] [<close reason>]\n"
-                << "show <connection id>\n"
-                << "help: Display this help text\n"
-                << "quit: Exit the program\n"
-                << std::endl;
-        } else if (input.substr(0,7) == "connect") {
-            int id = endpoint.connect(input.substr(8));
-            if (id != -1) {
-                std::cout << "> Created connection with id " << id << std::endl;
-            }
-        } else if (input.substr(0,4) == "send") {
-            std::stringstream ss(input);
-            
-            std::string cmd;
-            int id;
-            std::string message;
-            
-            ss >> cmd >> id;
-            std::getline(ss,message);
-            
-            endpoint.send(id, message);
-        } 
-        else if (input.substr(0,2) == "sb") {
-            std::stringstream ss(input);
-            
-            std::string cmd;
-            int id;
-            std::string message;
-            
-            ss >> cmd >> id;
-            std::getline(ss,message);
-            
-            endpoint.sendBin(id, message);
-            std::cout<<"send binary"<<std::endl;
-        } 
-        
-        else if (input.substr(0,5) == "close") {
-            std::stringstream ss(input);
-            
-            std::string cmd;
-            int id;
-            int close_code = websocketpp::close::status::normal;
-            std::string reason;
-            
-            ss >> cmd >> id >> close_code;
-            std::getline(ss,reason);
-            
-            endpoint.close(id, close_code, reason);
-        } else if (input.substr(0,4) == "show") {
-            int id = atoi(input.substr(5).c_str());
-
-            connection_metadata::ptr metadata = endpoint.get_metadata(id);
-            if (metadata) {
-                std::cout << *metadata << std::endl;
-            } else {
-                std::cout << "> Unknown connection id " << id << std::endl;
-            }
-        } else {
-            std::cout << "> Unrecognized Command" << std::endl;
-        }
+    std::string wsUrl="ws://127.0.0.1:9002";
+    std::string echoStr="askPort";
+    if(argc>=2)
+    {
+      std::string url="";
+      url+=argv[1];
+      wsUrl=url;
     }
+    if(argc>=3)
+    {
+      std::string txt="";
+      txt+=argv[2];
+      echoStr=txt;
+    }
+    if(echoStr=="askPort")
+    {
+     isSaveResult=1;
+    }
+    else
+    {
+      isSaveResult=0;
+    }
+
+
+  int id = endpoint.connect(wsUrl);
+  if (id != -1) {
+    std::cout << "> Created connection with id " << id << std::endl;
+   workSt=1;
+    while (workSt==1);
+    endpoint.send(id, "askPort");
+    while (workSt==2);
+  }
+  else
+  {
+    std::cout << "connection failed " << std::endl;
+
+  }
+
+
 
     return 0;
 }

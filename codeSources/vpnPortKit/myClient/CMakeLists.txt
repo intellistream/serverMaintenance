@@ -44,8 +44,8 @@ aux_source_directory (${PROJECT_SOURCE_DIR}/example/ EXAMPLE_LIST)
 set (HEADERS_SRC ${MYWEBSOCKETCLI_H_LIST})
 #generate
 
-add_executable (tony_websocket_cli ${EXAMPLE_LIST} ${MYWEBSOCKETCLI_BODY_LIST} ${TFL_BODY_LIST})
-target_link_libraries(tony_websocket_cli ${Boost_SYSTEM_LIBRARY})
+add_executable (vpnPortManCli ${EXAMPLE_LIST} ${MYWEBSOCKETCLI_BODY_LIST} ${TFL_BODY_LIST})
+target_link_libraries(vpnPortManCli ${Boost_SYSTEM_LIBRARY})
 
 #set (EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/$ENV{CC}_build)
 #set (LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/$ENV{CC}_build)

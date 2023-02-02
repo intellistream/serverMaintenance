@@ -1,4 +1,1 @@
-1. add frp binary
-2. add a docker template with cuda 
-3. add openvpn install scripts (experimental)
-4. add a mantainer of vpn ports, can be remotely called by websocket (experimental)
+1. continue to implement the vpn port management software
