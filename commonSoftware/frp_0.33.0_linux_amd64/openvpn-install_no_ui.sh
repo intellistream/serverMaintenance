@@ -1009,6 +1009,7 @@ remote-cert-tls server
 verify-x509-name $SERVER_NAME name
 auth $HMAC_ALG
 auth-nocache
+client-to-client
 cipher $CIPHER
 tls-client
 tls-version-min 1.2

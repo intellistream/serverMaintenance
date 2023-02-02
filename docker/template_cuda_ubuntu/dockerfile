@@ -37,6 +37,7 @@ RUN apt-get update &&\
       
 RUN apt-get clean
 RUN apt-get install -y sudo
+RUN echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
 #RUN pip3 install torch torchvision torchaudio
 # 添加用户并配置密码/Add user and config passwd
 RUN useradd -m ${USER} && yes ${PASSWD} | passwd ${USER}
@@ -55,6 +56,7 @@ RUN chmod 644 /etc/sudoers
 USER ${USER}
 RUN mkdir -p /home/${USER}/${WORKDIR}/
 RUN sudo echo 'sudo service ssh restart' >> ~/.bashrc
+
 RUN cd /home/${USER}/${WORKDIR}/ &&\
   git clone https://github.com/intellistream/serverMaintenance.git
 #ENV LC_ALL C.UTF-8
