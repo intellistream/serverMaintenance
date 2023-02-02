@@ -12,4 +12,6 @@ sudo cp frpc.service /lib/systemd/system/
 #sudo /usr/bin/frpc -c /etc/openvpn/frpc_vpn.ini &
 sudo systemctl enable openvpn
 sudo systemctl enable frpc
+echo "sudo service openvpn restart
+/usr/bin/frpc -c /etc/openvpn/frpc_vpn.ini &" >> /home/sutd/.bashrc
 sudo /usr/bin/frpc -c /etc/openvpn/frpc_vpn.ini &
