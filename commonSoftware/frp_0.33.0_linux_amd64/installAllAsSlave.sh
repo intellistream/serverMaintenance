@@ -2,4 +2,4 @@
 sudo rsync -avz shuhao@172.18.19.147:/largeData/vpnFiles/$1 /etc/openvpn
 sudo apt-get install openvpn
 echo "sudo openvpn /etc/openvpn/$1 &" >> /home/sutd/.bashrc
-sudo openvpn /etc/openvpn/$1
+sudo openvpn /etc/openvpn/$1 &
