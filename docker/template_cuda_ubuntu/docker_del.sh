@@ -1,4 +1,5 @@
-docker container stop aliancedb_u22_04_a
-docker container rm  aliancedb_u22_04_a
-docker image rm  adb_u2204_a
+#usage ./docker_del.sh [name of container], as normal admin user
+sudo docker container stop $1
+sudo docker container rm  $1
+
 

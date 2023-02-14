@@ -1,2 +1,3 @@
-docker start aliancedb_u22_04_a
-docker attach aliancedb_u22_04_a
+#usage ./docker_run.sh [name of container], as normal admin user
+sudo docker start $1
+sudo docker attach $1
