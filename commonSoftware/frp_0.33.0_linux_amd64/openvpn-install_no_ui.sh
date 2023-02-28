@@ -1009,13 +1009,12 @@ remote-cert-tls server
 verify-x509-name $SERVER_NAME name
 auth $HMAC_ALG
 auth-nocache
-client-to-client
 cipher $CIPHER
 tls-client
 tls-version-min 1.2
 tls-cipher $CC_CIPHER
-ignore-unknown-option block-outside-dns
-setenv opt block-outside-dns # Prevent Windows 10 DNS leak
+#ignore-unknown-option block-outside-dns
+#setenv opt block-outside-dns # Prevent Windows 10 DNS leak
 verb 3" >>/etc/openvpn/client-template.txt
 
 #LAN-ONLY file
@@ -1037,13 +1036,13 @@ remote-cert-tls server
 verify-x509-name $SERVER_NAME name
 auth $HMAC_ALG
 auth-nocache
-client-to-client
+#client-to-client
 cipher $CIPHER
 tls-client
 tls-version-min 1.2
 tls-cipher $CC_CIPHER
-ignore-unknown-option block-outside-dns
-setenv opt block-outside-dns # Prevent Windows 10 DNS leak
+#ignore-unknown-option block-outside-dns
+#setenv opt block-outside-dns # Prevent Windows 10 DNS leak
 verb 3" >>/etc/openvpn/client-lan-template.txt
 	if [[ $COMPRESSION_ENABLED == "y" ]]; then
 		echo "compress $COMPRESSION_ALG" >>/etc/openvpn/client-template.txt
