@@ -854,7 +854,7 @@ push "redirect-gateway ipv6"' >>/etc/openvpn/server.conf
 		echo "tls-auth tls-auth.key 0" >>/etc/openvpn/server.conf
 		;;
 	esac
-
+	echo "client-to-client" >>/etc/openvpn/server.conf
 	echo "crl-verify crl.pem
 ca ca.crt
 cert $SERVER_NAME.crt
@@ -1036,7 +1036,6 @@ remote-cert-tls server
 verify-x509-name $SERVER_NAME name
 auth $HMAC_ALG
 auth-nocache
-#client-to-client
 cipher $CIPHER
 tls-client
 tls-version-min 1.2
