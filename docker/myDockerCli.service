@@ -1,0 +1,15 @@
+[Unit]
+Description=Start Docker Cli Service
+After=network.target
+
+[Service]
+Type=simple
+User=nobody
+Restart=on-failure
+RestartSec=5s
+ExecStart=/usr/bin/envokeDockerCli.sh
+ExecReload=/usr/bin/envokeDockerCli.sh
+
+[Install]
+WantedBy=multi-user.target
+
