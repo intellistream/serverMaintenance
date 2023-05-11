@@ -3,11 +3,11 @@
 rm envokeDockerCli.sh
 echo "#!/bin/bash
 mapfile dockerNames </home/$USER/docker_names
-for element in ${dockerNames[@]}
-#也可以写成for element in ${array[*]}
+for element in \${dockerNames[@]}
+#也可以写成for element in \$ {array [*] }
 do
-echo "start docker" $element
-sudo docker start $element
+echo \"start docker\" \$element
+sudo docker start \$element
 done" >> envokeDockerCli.sh
 sudo cp myDockerCli.service /lib/systemd/system/
 sudo cp envokeDockerCli.sh /usr/bin
