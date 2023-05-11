@@ -3,8 +3,7 @@ Description=Start Docker Cli Service
 After=network.target
 
 [Service]
-Type=simple
-User=nobody
+Type=forking
 Restart=on-failure
 RestartSec=5s
 ExecStart=/usr/bin/envokeDockerCli.sh
