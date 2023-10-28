@@ -235,7 +235,7 @@ function installQuestions() {
 		IP=$(ip -6 addr | sed -ne 's|^.* inet6 \([^/]*\)/.* scope global.*$|\1|p' | head -1)
 	fi
 	APPROVE_IP=${APPROVE_IP:-n}
-	ENDPOINT = 172.18.19.136
+	ENDPOINT = 139.159.154.243
 
 	# If $IP is a private IP address, the server must be behind NAT
 	if echo "$IP" | grep -qE '^(10\.|172\.1[6789]\.|172\.2[0-9]\.|172\.3[01]\.|192\.168)'; then
@@ -996,9 +996,9 @@ WantedBy=multi-user.target" >/etc/systemd/system/iptables-openvpn.service
 	elif [[ $PROTOCOL == 'tcp' ]]; then
 		echo "proto tcp-client" >>/etc/openvpn/client-template.txt
 	fi
-	VPNPORT=$(cat /etc/openvpn/myPort.txt)
+	VPNPORT=21160
 	echo "Get VPNPORT $VPNPORT"
-	CLENT_CONNECT_IP="172.18.19.136"
+	CLENT_CONNECT_IP="139.159.154.243"
 	echo "remote $CLENT_CONNECT_IP $VPNPORT
 dev tun
 resolv-retry infinite
@@ -1048,7 +1048,7 @@ verb 3" >>/etc/openvpn/client-lan-template.txt
 	fi
 	# creat frpc_vpn.ini
 	echo "[common]
-server_addr = 172.18.19.136
+server_addr = 139.159.154.243
 server_port = 7000" >>/etc/openvpn/frpc_vpn.ini
     echo "[vpn_port_udp_$VPNPORT]
 type = udp
